@@ -17,7 +17,7 @@ export default class Translator extends Component {
         <div className='app'>
           <h1>Translate Something!</h1>
           <h2>What would you like to translate?</h2>
-          <form>
+          <form onSubmit={this.handleSubmit}>
           <input
                         className="upload-element"
                         type="text"
@@ -35,8 +35,9 @@ export default class Translator extends Component {
                 // onChange={this.handleChange}
             >
                 <option
-                    value="language 1">Language 1</option>
+                    value="pirate">Pirate</option>
             </select>
+            <button type="submit">Submit</button>
           </form>
         </div>
       );
