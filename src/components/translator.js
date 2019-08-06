@@ -5,11 +5,40 @@ export default class Translator extends Component {
         super(props)
 
         this.state = {
-            title: "",
+            text: "",
             language: "",
         }
 
-        
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+
+        let text = this.state.text
+        let language = this.state.language
+
+        if(language === "pirate"){
+            fetch('https://api.funtranslations.com/translate/pirate',{
+                method: 'post',
+                headers: {
+                    "Content-Type" : "application/json"
+                }, body: JSON.stringify({text, language})
+            })
+            .then(response => {return response.json();})
+            .then(responseData=>{console.log(responseData)
+                return responseData})
+            .catch(err => {
+                console.log("Retch error on Pirate language" + err)
+            })
+        } else {console.log("different language chosen")}
     }
 
     render() {
@@ -23,8 +52,8 @@ export default class Translator extends Component {
                         type="text"
                         name="text"
                         placeholder="Type Text Here"
-                        value={this.state.title}
-                        // onChange={this.handleChange}
+                        value={this.state.text}
+                        onChange={this.handleChange}
                     />
             <h2>into...</h2>
 
@@ -32,7 +61,7 @@ export default class Translator extends Component {
                 className="language-select"
                 name="language"
                 value={this.state.language}
-                // onChange={this.handleChange}
+                onChange={this.handleChange}
             >
                 <option
                     value="pirate">Pirate</option>
