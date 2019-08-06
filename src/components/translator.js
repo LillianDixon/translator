@@ -6,7 +6,7 @@ export default class Translator extends Component {
 
         this.state = {
             text: "",
-            language: "",
+            language: "pirate",
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,6 +17,7 @@ export default class Translator extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
+        console.log(this.state.language)
     }
 
     handleSubmit(event){
