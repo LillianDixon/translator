@@ -6,7 +6,7 @@ export default class Translator extends Component {
 
         this.state = {
             text: "",
-            language: "pirate",
+            translation: "pirate",
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,27 +17,27 @@ export default class Translator extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-        console.log(this.state.language)
+        console.log(this.state.translation)
     }
 
     handleSubmit(event){
         event.preventDefault();
 
         let text = this.state.text
-        let language = this.state.language
+        let translation = this.state.translation
 
-        if(language === "pirate"){
-            fetch('https://api.funtranslations.com/translate/pirate',{
+        if(translation === "pirate"){
+            fetch('https://api.funtranslations.com/translate/pirate.json',{
                 method: 'post',
                 headers: {
                     "Content-Type" : "application/json"
-                }, body: JSON.stringify({text, language})
+                }, body: JSON.stringify({text, translation})
             })
             .then(response => {return response.json();})
             .then(responseData=>{console.log(responseData)
                 return responseData})
             .catch(err => {
-                console.log("Retch error on Pirate language" + err)
+                console.log("Fetch error on Pirate language" + err)
             })
         } else {console.log("different language chosen")}
     }
@@ -60,8 +60,8 @@ export default class Translator extends Component {
 
             <select 
                 className="language-select"
-                name="language"
-                value={this.state.language}
+                name="translation"
+                value={this.state.translation}
                 onChange={this.handleChange}
             >
                 <option
